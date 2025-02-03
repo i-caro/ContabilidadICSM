@@ -6,14 +6,73 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+  appPages = [
+    {
+      title: 'Clientes',
+      url: '/clientes',
+      icon: 'people'
+    },
+    {
+      title: 'Ficha Contable',
+      url: '/ficha-contable',
+      icon: 'document'
+    },
+    {
+      title: 'Facturas Proforma',
+      url: '/facturas-proforma',
+      icon: 'receipt'
+    },
+    {
+      title: 'Facturas Definitivas',
+      url: '/facturas-definitivas',
+      icon: 'receipt'
+    },
+    {
+      title: 'Balance de Gastos',
+      url: '/balance-gastos',
+      icon: 'cash'
+    },
+    {
+      title: 'Posición de Cliente',
+      url: '/posicion-cliente',
+      icon: 'stats-chart'
+    },
+    {
+      title: 'Minutas Proforma',
+      url: '/minutas-proforma',
+      icon: 'document-text'
+    },
+    {
+      title: 'Minutas Definitivas',
+      url: '/minutas-definitivas',
+      icon: 'document-text'
+    }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  diaSemana: string = '';
+  horaActual: string = '';
   constructor() {}
+
+  ngOnInit() {
+    this.obtenerDiaSemana();
+    this.obtenerHora();
+  }
+
+  obtenerDiaSemana() {
+    const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const hoy = new Date().getDay();
+    this.diaSemana = dias[hoy];
+  }
+
+  obtenerHora(){
+    const horas = ['Buenos días', 'Buenas tardes', 'Buenas noches']
+    const ahora = new Date().getHours()
+    if(ahora >= 7 && ahora < 12){
+      this.horaActual = horas[0]
+    }else if(ahora >= 12 && ahora < 20){
+      this.horaActual = horas[1]
+    }else {
+      this.horaActual = horas[2]
+    }
+    
+  }
 }
