@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nuevo Cliente</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="cliente.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Apellidos</ion-label>
+      <ion-input [(ngModel)]="cliente.surname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Dirección</ion-label>
+      <ion-input [(ngModel)]="cliente.address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">NIF o NIE</ion-label>
+      <ion-input [(ngModel)]="cliente.nif_nie"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input [(ngModel)]="cliente.email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Teléfono</ion-label>
+      <ion-input [(ngModel)]="cliente.phone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Observaciones</ion-label>
+      <ion-input [(ngModel)]="cliente.observations"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-footer>
+    <ion-button expand="full" (click)="guardarCliente()">Guardar</ion-button>
+  </ion-footer>
+</ion-content>

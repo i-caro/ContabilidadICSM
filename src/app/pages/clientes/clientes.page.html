@@ -1,13 +1,30 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Clientes</ion-title>
+    <ion-title>Albaricoque</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Clientes</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let cliente of clientes$ | async">
+      <ion-card-header>
+        <ion-card-title>{{ cliente.name }}</ion-card-title>
+        <ion-card-subtitle>{{ cliente.surname }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Teléfono:</strong> {{ cliente.phone }}</p>
+        <p><strong>Dirección:</strong> {{ cliente.address }}</p>
+        <p><strong>NIF o NIE:</strong> {{ cliente.nif_nie }}</p>
+        <p><strong>Email:</strong> {{ cliente.email }}</p>
+        <p><strong>Observaciones:</strong> {{ cliente.observations }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <!-- Botón flotante para agregar un nuevo cliente -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="abrirModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
