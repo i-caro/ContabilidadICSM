@@ -1,11 +1,12 @@
-export interface Client {
+export interface Cliente {
     id?: string;
-    name: string;
-    surname: string;
-    address: string;
+    nombre: string;
+    apellido: string;
+    direccion: string;
     nif_nie: string;
-    email: string;
-    phone: string;
-    observations: string;
-    isDebtor: boolean;
+    correo: string;
+    telefono: string;
+    observaciones: string;
+    isDebtor: false;
   }
+  

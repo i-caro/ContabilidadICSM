@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -56,6 +57,7 @@ export class AppComponent {
     this.obtenerDiaSemana();
     this.obtenerHora();
   }
+
 
   obtenerDiaSemana() {
     const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];

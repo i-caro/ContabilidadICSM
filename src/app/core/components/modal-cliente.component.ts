@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { ClientesService } from '../services/clientes.service';
-import { Client } from '../models/cliente.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Cliente } from '../models/cliente.model';
+
 
 @Component({
   selector: 'app-modal-cliente',
@@ -13,23 +13,22 @@ import { FormsModule } from '@angular/forms';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ModalClienteComponent {
-  cliente: Client = {
-    name: '',
-    surname: '',
-    address: '',
+  cliente: Cliente = {
+    nombre: '',
+    apellido: '',
+    direccion: '',
     nif_nie: '',
-    email: '',
-    phone: '',
-    observations: '',
+    correo: '',
+    telefono: '',
+    observaciones: '',
     isDebtor: false
   };
 
-  constructor(private modalCtrl: ModalController, private clientesService: ClientesService) {}
+  constructor(private modalCtrl: ModalController) {}
 
-  async guardarCliente() {
-    if (this.cliente.name && this.cliente.email) {
-      await this.clientesService.addCliente(this.cliente);
-      this.modalCtrl.dismiss();
+  guardarCliente() {
+    if (this.cliente.nombre && this.cliente.correo && this.cliente.telefono) {
+      this.modalCtrl.dismiss({ cliente: this.cliente });
     }
   }
 
