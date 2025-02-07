@@ -4,6 +4,7 @@ import { AlertController, ModalController, ToastController } from '@ionic/angula
 import { ModalClienteComponent } from 'src/app/core/components/modal-cliente.component';
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { Cliente } from 'src/app/core/models/cliente.model';
+import { PdfGeneratorService } from 'src/app/core/services/pdf-generator.service';
 
 @Component({
   selector: 'app-clientes',
@@ -19,7 +20,8 @@ export class ClientesPage implements OnInit {
     private modalCtrl: ModalController,
     private clienteService: ClienteService,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private pdfService: PdfGeneratorService
   ) {}
 
   ngOnInit() {
@@ -87,6 +89,10 @@ export class ClientesPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  async generarPDF(cliente: Cliente){
+    this.pdfService.generatePdf(cliente)
   }
 }
 
