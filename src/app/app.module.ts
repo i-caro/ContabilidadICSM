@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/compat/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCL_FHJ6DOxHGldJ2QB9NNQaXvUvhFP3LY",
@@ -27,7 +27,9 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [
+    { provide: SETTINGS, useValue: { experimentalForceLongPolling: true } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

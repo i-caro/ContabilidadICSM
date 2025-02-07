@@ -23,8 +23,14 @@ export class ClientesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe(clientes => {
-      this.clientes = clientes;
+    this.clienteService.getClientes().subscribe({
+      next: clientes => {
+        this.clientes = clientes;
+        console.log("Clientes obtenidos:", this.clientes);
+      },
+      error: err => {
+        console.error("Error al obtener clientes:", err);
+      }
     });
   }
 
@@ -47,9 +53,9 @@ export class ClientesPage implements OnInit {
       component: ModalClienteComponent,
       componentProps: { cliente }
     });
-
+  
     await modal.present();
-
+  
     const { data } = await modal.onWillDismiss();
     if (data && data.cliente) {
       await this.clienteService.editarCliente(data.cliente);
