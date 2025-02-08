@@ -2,12 +2,17 @@
   <ion-toolbar>
     <ion-title>Clientes</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchText" (ionInput)="filtrarClientes()"
+                   placeholder="Buscar cliente..."></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="15" size-md="9" size-lg="6" *ngFor="let cliente of clientes">
+      <ion-col size="25" size-md="19" size-lg="6" *ngFor="let cliente of clientesFiltrados">
         <ion-card class="cliente-card">
           <ion-card-header>
             <div class="cliente-avatar">
@@ -32,7 +37,7 @@
                 <ion-icon slot="start" name="trash-outline"></ion-icon> Eliminar
               </ion-button>
               <ion-button fill="outline" color="info" (click)="generarPDF(cliente)">
-                <ion-icon slot="start" name="trash-outline"></ion-icon> Generar PDF
+                <ion-icon slot="start" name="mail-outline"></ion-icon> Generar PDF
               </ion-button>
             </div>
           </ion-card-content>

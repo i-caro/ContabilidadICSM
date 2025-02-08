@@ -15,6 +15,8 @@ import { PdfGeneratorService } from 'src/app/core/services/pdf-generator.service
 export class ClientesPage implements OnInit {
   clientes: Cliente[] = [];
   nuevoCliente: Cliente | undefined;
+  clientesFiltrados: Cliente[] = [];
+  searchText: string = ''; 
 
   constructor(
     private modalCtrl: ModalController,
@@ -28,12 +30,32 @@ export class ClientesPage implements OnInit {
     this.clienteService.getClientes().subscribe({
       next: clientes => {
         this.clientes = clientes;
+        this.clientesFiltrados = clientes;
         console.log("Clientes obtenidos:", this.clientes);
       },
       error: err => {
         console.error("Error al obtener clientes:", err);
       }
     });
+  }
+
+  filtrarClientes() {
+    const texto = this.quitarTildes(this.searchText.toLowerCase().trim());
+
+    if (texto === '') {
+      this.clientesFiltrados = this.clientes;
+    } else {
+      this.clientesFiltrados = this.clientes.filter(cliente =>
+        this.quitarTildes(cliente.nombre.toLowerCase()).includes(texto) ||
+        this.quitarTildes(cliente.correo.toLowerCase()).includes(texto) ||
+        this.quitarTildes(cliente.telefono.toLowerCase()).includes(texto) ||
+        (cliente.nif_nie && this.quitarTildes(cliente.nif_nie.toLowerCase()).includes(texto))
+      );
+    }
+  }
+
+  quitarTildes(texto: string): string {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
   async agregarCliente() {
