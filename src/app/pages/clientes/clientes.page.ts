@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
-import { ModalClienteComponent } from 'src/app/core/components/modal-cliente.component';
+import { ModalClienteComponent } from 'src/app/core/components/cliente-component/modal-cliente.component';
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { Cliente } from 'src/app/core/models/cliente.model';
 import { PdfGeneratorService } from 'src/app/core/services/pdf-generator.service';
+import { FichaContableService } from 'src/app/core/services/ficha-contable.service';
 
 @Component({
   selector: 'app-clientes',
@@ -14,7 +14,6 @@ import { PdfGeneratorService } from 'src/app/core/services/pdf-generator.service
 })
 export class ClientesPage implements OnInit {
   clientes: Cliente[] = [];
-  nuevoCliente: Cliente | undefined;
   clientesFiltrados: Cliente[] = [];
   searchText: string = ''; 
 
@@ -23,7 +22,7 @@ export class ClientesPage implements OnInit {
     private clienteService: ClienteService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private pdfService: PdfGeneratorService
+    private pdfService: PdfGeneratorService,
   ) {}
 
   ngOnInit() {

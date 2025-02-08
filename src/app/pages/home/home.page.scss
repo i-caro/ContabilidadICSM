@@ -1,0 +1,28 @@
+ion-content {
+    --background: linear-gradient(to bottom, #4facfe, #00f2fe); // Gradiente azulado
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+  
+  .text-center {
+    color: white;
+    padding: 20px;
+  }
+  
+  .logout-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2); // Fondo semitransparente
+    border-radius: 10px;
+  }
+  
+  ion-button {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  

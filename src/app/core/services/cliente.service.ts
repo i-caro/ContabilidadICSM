@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Cliente } from '../models/cliente.model';
+import { FichaContable } from '../models/ficha-contable.model';
+import { FichaContableService } from './ficha-contable.service';
+
 
 
 @Injectable({
@@ -13,7 +16,7 @@ import { Cliente } from '../models/cliente.model';
 export class ClienteService {
   private clientesCollection = this.firestore.collection<Cliente>('clientes');
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, private fichaService: FichaContableService) {
   }
 
   getClientes(): Observable<Cliente[]> {
@@ -27,11 +30,37 @@ export class ClienteService {
         }))
       );
   }
+
+  async getCliente(clienteId: string): Promise<Cliente | null> {
+    try {
+      const clienteRef = doc(this.firestore.firestore, 'clientes', clienteId);
+      const clienteSnap = await getDoc(clienteRef);
+
+      if (clienteSnap.exists()) {
+        return clienteSnap.data() as Cliente;
+      } else {
+        console.warn(`⚠ Cliente con ID "${clienteId}" no encontrado.`);
+        return null;
+      }
+    } catch (error) {
+      console.error('❌ Error al obtener el cliente:', error);
+      return null;
+    }
+  }
   
 
   async agregarCliente(cliente: Cliente): Promise<void> {
     try {
       const docRef = await this.clientesCollection.add(cliente);
+
+      const ficha: FichaContable = {
+        clienteId: docRef.id,
+        clienteNombre: cliente.nombre,
+        saldo: 0,
+    };
+
+    await this.fichaService.agregarFicha(ficha);
+
       return console.log("Cliente agregado con ID:", docRef.id);
     } catch (error) {
       console.error("Error al agregar cliente:", error);

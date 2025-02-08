@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Cliente } from '../models/cliente.model';
+import { Cliente } from '../../models/cliente.model';
+
 
 
 @Component({

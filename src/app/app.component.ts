@@ -9,6 +9,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   appPages = [
     {
+      title: 'Inicio',
+      url: '/home',
+      icon: 'home'
+    },
+    {
       title: 'Clientes',
       url: '/clientes',
       icon: 'people'

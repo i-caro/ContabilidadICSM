@@ -1,0 +1,34 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ion-content {
+    --min-height: auto;
+    --max-height: 80vh; /* Ajuste dinámico de altura */
+    --padding-bottom: 10px;
+  }
+  
+  form {
+    margin-top: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  ion-item {
+    width: 100%;
+    max-width: 400px; /* Evita que los campos sean demasiado anchos */
+  }
+  
+  /* Botón de guardar centrado y con bordes redondeados */
+  ion-button {
+    width: 80%;
+    border-radius: 20px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  

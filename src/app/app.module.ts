@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/compat/firestore';
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCL_FHJ6DOxHGldJ2QB9NNQaXvUvhFP3LY",
   authDomain: "contabilidadicsm-8b978.firebaseapp.com",
@@ -25,7 +26,7 @@ const firebaseConfig = {
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
   ],
   providers: [
     { provide: SETTINGS, useValue: { experimentalForceLongPolling: true } }
