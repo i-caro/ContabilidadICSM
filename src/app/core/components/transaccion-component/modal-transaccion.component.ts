@@ -17,7 +17,8 @@ export class ModalTransaccionComponent {
   transaccion: Transaccion = {
     clienteId: '',
     descripcion: '',
-    monto: 0
+    monto: 0,
+    pagado: false,
   };
 
   constructor(private modalCtrl: ModalController) {}

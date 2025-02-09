@@ -54,6 +54,7 @@ export class FichaContableService {
           await updateDoc(transRef, {
             descripcion: transaccion.descripcion,
             monto: transaccion.monto,
+            pagado: transaccion.pagado
           });
     
           console.log("Transaccion actualizada con éxito.");

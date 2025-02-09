@@ -19,6 +19,14 @@
       <ion-input [(ngModel)]="transaccion.descripcion" name="descripcion"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label>Pagado</ion-label>
+      <ion-select [(ngModel)]="transaccion.pagado">
+        <ion-select-option [value]="true">Sí</ion-select-option>
+        <ion-select-option [value]="false">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item style="display: none;">
       <ion-label>Cliente ID:</ion-label>
       <ion-input [value]="transaccion.clienteId" readonly></ion-input>

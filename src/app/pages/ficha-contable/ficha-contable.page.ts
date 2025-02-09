@@ -77,7 +77,7 @@ export class FichaContablePage implements OnInit {
     if (data?.transaccion) {
       await this.fichaService.crearTransaccion(data.transaccion);
       this.mostrarToast('Transacción agregada con éxito');
-      this.obtenerTransacciones(); // Actualiza las transacciones
+      this.obtenerTransacciones();
     }
   }
 

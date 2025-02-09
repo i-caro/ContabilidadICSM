@@ -9,5 +9,6 @@ export interface Transaccion{
     id?: string,
     clienteId: string,
     descripcion: string,
-    monto: number
+    monto: number,
+    pagado: boolean
 }

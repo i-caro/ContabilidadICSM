@@ -29,6 +29,7 @@
                   <ion-label>
                     <p><strong>Monto:</strong> {{ transaccion.monto | currency }}</p>
                     <p><strong>Descripción:</strong> {{ transaccion.descripcion }}</p>
+                    <p><strong>Pagado:</strong> {{ transaccion.pagado?"Sí":"No" }}</p>
                   </ion-label>
                   <ion-buttons slot="end">
                     <ion-button color="warning" (click)="editarTransaccion(transaccion)">
