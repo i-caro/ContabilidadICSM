@@ -1,13 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>Posicion Cliente</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchText" (ionInput)="filtrarClientes()"
+                   placeholder="Buscar cliente..."></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Posicion Cliente</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let cliente of clientesFiltrados" 
+              [style.background]="getColor(cliente.id!)">
+      <ion-card-header>
+        <ion-card-title>
+          {{ cliente.nombre + " " + cliente.apellido + " | " + cliente.nif_nie }}
+        </ion-card-title>
+      </ion-card-header>
+
+      <!-- Mostrar transacciones impagas solo si existen -->
+      <ion-card-content *ngIf="getTransaccionesImpagas(cliente.id!).length > 0">
+        <ion-list>
+          <ion-item *ngFor="let trans of getTransaccionesImpagas(cliente.id!)">
+            {{ trans.descripcion }} - {{ trans.monto | currency }}
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+      
+    </ion-card>
+  </ion-list>
 </ion-content>

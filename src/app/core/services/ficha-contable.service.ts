@@ -123,5 +123,20 @@ export class FichaContableService {
           throw error;
         }
       }
+
+      getTransaccionesPorCliente(clienteId: string): Observable<Transaccion[]> {
+        return this.transCollection.snapshotChanges().pipe(
+          map(actions => 
+            actions
+              .filter(a => a.payload.doc.data().clienteId === clienteId)
+              .map(a => {
+                const data = a.payload.doc.data() as Transaccion;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              })
+          )
+        );
+    }
+    
 }
 
