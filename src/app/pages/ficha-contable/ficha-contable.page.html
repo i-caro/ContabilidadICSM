@@ -9,36 +9,41 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col *ngFor="let ficha of fichasFiltradas">
-        <ion-card class="ficha-card">
-          <ion-card-header>
-            <div class="ficha-info">
+  <div class="ficha-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" *ngFor="let ficha of fichasFiltradas">
+          <ion-card class="ficha-card">
+            <ion-card-header>
               <ion-card-title>{{ ficha.clienteNombre }}</ion-card-title>
-            </div>
-          </ion-card-header>
+              <p><ion-icon name="cash-outline"></ion-icon> Saldo: {{ ficha.saldo }}</p>
+            </ion-card-header>
 
-          <ion-card-content>
-            <p><ion-icon name="cash-outline"></ion-icon> {{ ficha.saldo }}</p>
+            <ion-card-content>
+              <ion-button expand="full" color="primary" (click)="agregarTransaccion(ficha.clienteId)">
+                Añadir Transacción
+              </ion-button>
 
-            <ion-button expand="full" color="primary" (click)="agregarTransaccion(ficha.clienteId)">
-              Añadir Transacción
-            </ion-button>
-
-            <ion-list>
-              <ion-item *ngFor="let transaccion of getTransaccionesFiltradas(ficha.clienteId)"
-                        (click)="editarTransaccion(transaccion)">
-                <ion-label>
-                  <p><strong>Monto:</strong> {{ transaccion.monto }}</p>
-                  <p><strong>Descripción:</strong> {{ transaccion.descripcion }}</p>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+              <ion-list>
+                <ion-item *ngFor="let transaccion of getTransaccionesFiltradas(ficha.clienteId)">
+                  <ion-label>
+                    <p><strong>Monto:</strong> {{ transaccion.monto | currency }}</p>
+                    <p><strong>Descripción:</strong> {{ transaccion.descripcion }}</p>
+                  </ion-label>
+                  <ion-buttons slot="end">
+                    <ion-button color="warning" (click)="editarTransaccion(transaccion)">
+                      <ion-icon name="create-outline"></ion-icon>
+                    </ion-button>
+                    <ion-button color="danger" (click)="eliminarTransaccion(transaccion.id!)">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

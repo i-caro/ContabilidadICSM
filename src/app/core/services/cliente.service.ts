@@ -100,6 +100,7 @@ export class ClienteService {
     try {
       const clienteRef = doc(this.firestore.firestore, 'clientes', clienteId);
       await deleteDoc(clienteRef);
+      this.fichaService.eliminarFichaYTransaccionesPorClienteId(clienteId);
       console.log("Cliente eliminado con éxito.");
     } catch (error) {
       console.error("Error al eliminar cliente:", error);

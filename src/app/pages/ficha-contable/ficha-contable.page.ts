@@ -22,33 +22,43 @@ export class FichaContablePage implements OnInit {
     private fichaService: FichaContableService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private pdfService: PdfGeneratorService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
+    this.obtenerFichas();
+    this.obtenerTransacciones();
+  }
+
+  obtenerFichas() {
     this.fichaService.getFichas().subscribe({
       next: fichas => {
         this.fichas = fichas;
         this.fichasFiltradas = fichas;
-        console.log("Clientes obtenidos:", this.fichas);
       },
       error: err => {
-        console.error("Error al obtener clientes:", err);
+        console.error("Error al obtener fichas:", err);
+      }
+    });
+  }
+
+  obtenerTransacciones() {
+    this.fichaService.getTransacciones().subscribe({
+      next: transacciones => {
+        this.transacciones = transacciones;
+      },
+      error: err => {
+        console.error("Error al obtener transacciones:", err);
       }
     });
   }
 
   filtrarFichas() {
     const texto = this.quitarTildes(this.searchText.toLowerCase().trim());
-
-    if (texto === '') {
-      this.fichasFiltradas = this.fichas;
-    } else {
-      this.fichasFiltradas = this.fichas.filter(ficha =>
-        this.quitarTildes(ficha.clienteNombre.toLowerCase()).includes(texto)
-      );
-    }
+    this.fichasFiltradas = texto === ''
+      ? this.fichas
+      : this.fichas.filter(ficha =>
+          this.quitarTildes(ficha.clienteNombre.toLowerCase()).includes(texto)
+        );
   }
 
   quitarTildes(texto: string): string {
@@ -56,46 +66,65 @@ export class FichaContablePage implements OnInit {
   }
 
   async agregarTransaccion(clienteId: string) {
-      const modal = await this.modalCtrl.create({
-        component: ModalTransaccionComponent,
-        componentProps: { clienteId }
-      });
-  
-      await modal.present();
-  
-      const { data } = await modal.onWillDismiss();
-      if (data && data.transaccion) {
-        await this.fichaService.crearTransaccion(data.transaccion);
-        this.mostrarToast('Transaccion agregada con éxito');
-      }
-    }
+    const modal = await this.modalCtrl.create({
+      component: ModalTransaccionComponent,
+      componentProps: { clienteId }
+    });
 
-    async mostrarToast(mensaje: string) {
-      const toast = await this.toastController.create({
-        message: mensaje,
-        duration: 2000
-      });
-      toast.present();
-    }
+    await modal.present();
 
-    getTransaccionesFiltradas(clienteId: string): Transaccion[] {
-      return this.transacciones.filter(t => t.clienteId === clienteId);
+    const { data } = await modal.onWillDismiss();
+    if (data?.transaccion) {
+      await this.fichaService.crearTransaccion(data.transaccion);
+      this.mostrarToast('Transacción agregada con éxito');
+      this.obtenerTransacciones(); // Actualiza las transacciones
     }
-    
-    async editarTransaccion(transaccion: Transaccion) {
-        const modal = await this.modalCtrl.create({
-          component: ModalTransaccionComponent,
-          componentProps: { transaccion }
-        });
-      
-        await modal.present();
-      
-        const { data } = await modal.onWillDismiss();
-        if (data && data.transaccion) {
-          await this.fichaService.editarTransaccion(data.transaccion);
-          this.mostrarToast('Cliente actualizado con éxito');
+  }
+
+  async editarTransaccion(transaccion: Transaccion) {
+    const modal = await this.modalCtrl.create({
+      component: ModalTransaccionComponent,
+      componentProps: { transaccion }
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data?.transaccion) {
+      await this.fichaService.editarTransaccion(data.transaccion);
+      this.mostrarToast('Transacción editada con éxito');
+      this.obtenerTransacciones();
+    }
+  }
+
+  async eliminarTransaccion(transaccionId: string) {
+    const alert = await this.alertController.create({
+      header: 'Eliminar Transacción',
+      message: '¿Estás seguro de que deseas eliminar esta transacción?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Eliminar', handler: async () => {
+            await this.fichaService.eliminarTransaccion(transaccionId);
+            this.mostrarToast('Transacción eliminada con éxito');
+            this.obtenerTransacciones();
+          }
         }
-      }
+      ]
+    });
 
+    await alert.present();
+  }
+
+  async mostrarToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  getTransaccionesFiltradas(clienteId: string): Transaccion[] {
+    return this.transacciones.filter(t => t.clienteId === clienteId);
+  }
 }
 
