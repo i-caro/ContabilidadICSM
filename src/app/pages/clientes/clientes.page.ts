@@ -113,7 +113,7 @@ export class ClientesPage implements OnInit {
   }
 
   async generarPDF(cliente: Cliente){
-    this.pdfService.generatePdf(cliente)
+    this.pdfService.generateClientePdf(cliente)
   }
 }
 
