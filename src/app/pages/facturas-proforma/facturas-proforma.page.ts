@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { FacturaModalComponent } from 'src/app/core/components/factura-component/factura-modal.component';
 
 @Component({
   selector: 'app-facturas-proforma',
@@ -7,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   standalone: false
 })
 export class FacturasProformaPage implements OnInit {
+  
+  constructor(private modalController: ModalController) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  async openFacturaModal() {
+    const modal = await this.modalController.create({
+      component: FacturaModalComponent
+    });
+    await modal.present();
   }
-
 }

@@ -54,6 +54,7 @@ export class FichaContableService {
           await updateDoc(transRef, {
             descripcion: transaccion.descripcion,
             monto: transaccion.monto,
+            cantidad: transaccion.cantidad,
             pagado: transaccion.pagado
           });
     

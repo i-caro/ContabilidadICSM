@@ -10,5 +10,6 @@ export interface Transaccion{
     clienteId: string,
     descripcion: string,
     monto: number,
+    cantidad: number,
     pagado: boolean
 }

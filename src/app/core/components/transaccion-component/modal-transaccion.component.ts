@@ -18,6 +18,7 @@ export class ModalTransaccionComponent {
     clienteId: '',
     descripcion: '',
     monto: 0,
+    cantidad: 0,
     pagado: false,
   };
 
@@ -30,7 +31,7 @@ export class ModalTransaccionComponent {
   }
 
   guardarTransaccion() {
-    if (this.transaccion.descripcion && this.transaccion.monto > 0) {
+    if (this.transaccion.descripcion && this.transaccion.monto > 0 && this.transaccion.cantidad > 0) {
       this.modalCtrl.dismiss({ transaccion: this.transaccion });
     }
   }

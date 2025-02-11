@@ -20,6 +20,11 @@
     </ion-item>
 
     <ion-item>
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input type="number" [(ngModel)]="transaccion.cantidad" name="cantidad"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Pagado</ion-label>
       <ion-select [(ngModel)]="transaccion.pagado">
         <ion-select-option [value]="true">Sí</ion-select-option>

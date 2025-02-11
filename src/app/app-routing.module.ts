@@ -5,8 +5,9 @@ import { AuthGuard } from './core/services/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    redirectTo: 'home',
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'minutas-definitivas',

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Generar Factura Proforma</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="facturaForm">
+    <ion-item>
+      <ion-label>Cliente</ion-label>
+      <ion-searchbar [(ngModel)]="searchText" (ionInput)="filtrarClientes()" debounce="300"></ion-searchbar>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Cliente</ion-label>
+      <ion-select formControlName="cliente" (ionChange)="onClienteChange($event)">
+        <ion-select-option *ngFor="let cliente of clientesFiltrados" [value]="cliente.id">
+          {{ cliente.nombre }} {{ cliente.apellido }} - {{ cliente.nif_nie }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-card *ngIf="clienteSeleccionado.id">
+      <ion-card-header>
+        <ion-card-title>Información del Cliente</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Nombre:</strong> {{ clienteSeleccionado.nombre }} {{ clienteSeleccionado.apellido }}</p>
+        <p><strong>Dirección:</strong> {{ clienteSeleccionado.direccion }}</p>
+        <p><strong>NIF/NIE:</strong> {{ clienteSeleccionado.nif_nie }}</p>
+        <p><strong>Correo:</strong> {{ clienteSeleccionado.correo }}</p>
+        <p><strong>Teléfono:</strong> {{ clienteSeleccionado.telefono }}</p>
+        <p><strong>Observaciones:</strong> {{ clienteSeleccionado.observaciones }}</p>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-item>
+      <ion-label>Transacciones</ion-label>
+      <ion-select formControlName="transacciones" multiple="true" [disabled]="!clienteSeleccionado.id">
+        <ion-select-option *ngFor="let transaccion of transaccionesFiltradas" [value]="transaccion.id">
+          {{ transaccion.descripcion }} - {{ transaccion.monto }}€ - {{transaccion.cantidad}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-button expand="full" (click)="generarFactura()" [disabled]="!clienteSeleccionado.id">Generar Factura</ion-button>
+  </form>
+</ion-content>
