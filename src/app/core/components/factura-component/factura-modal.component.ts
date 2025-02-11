@@ -7,6 +7,7 @@ import { Cliente } from '../../models/cliente.model';
 import { Transaccion } from '../../models/ficha-contable.model';
 import { PdfGeneratorService } from '../../services/pdf-generator.service';
 import { CommonModule } from '@angular/common';
+import { FacturaService } from '../../services/facturas.service';
 
 @Component({
   selector: 'app-factura-modal',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class FacturaModalComponent implements OnInit {
+
     facturaForm: FormGroup;
     clientes: Cliente[] = [];
     clientesFiltrados: Cliente[] = [];
@@ -38,7 +40,8 @@ export class FacturaModalComponent implements OnInit {
       private modalController: ModalController,
       private clienteService: ClienteService,
       private transactionService: FichaContableService,
-      private pdfService: PdfGeneratorService
+      private pdfService: PdfGeneratorService,
+      private facturaService: FacturaService
     ) {
       this.facturaForm = this.fb.group({
         cliente: [null],
@@ -74,7 +77,7 @@ export class FacturaModalComponent implements OnInit {
       this.modalController.dismiss();
     }
 
-    generarFactura() {
+    async generarFactura() {
       const cliente = this.facturaForm.value.cliente;
       const transacciones = this.transaccionesFiltradas.filter(t => this.facturaForm.value.transacciones.includes(t.id));
       if (!cliente || transacciones.length === 0) {
@@ -83,12 +86,17 @@ export class FacturaModalComponent implements OnInit {
       }
       
       // Llamada a la función existente para generar la factura proforma
-      this.pdfService.generateFacturaProforma(cliente, transacciones);
+      const factura = await this.pdfService.generateFactura(cliente, transacciones, true);
+      if(factura){
+        this.facturaService.agregarFactura(factura)
+      }else{
+        console.log("Cancelado")
+      }
       this.cerrarModal();
     }
 
-    filtrarClientes() {
-      const texto = this.quitarTildes(this.searchText.toLowerCase().trim());
+    filtrarClientes(event: any) {
+      const texto = this.quitarTildes(event.target.value.toLowerCase());
   
       if (texto === '') {
         this.clientesFiltrados = this.clientes;

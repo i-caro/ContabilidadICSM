@@ -2,7 +2,31 @@
   <ion-toolbar>
     <ion-title>Facturas Proforma</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchText" (ionInput)="filtrarClientes()"
+                   placeholder="Buscar cliente..."></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
+
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let factura of facturasFiltradas">
+      <ion-card class="cliente-card">
+        <ion-card-header>
+          <div class="cliente-info">
+            <ion-card-title>{{ factura.nombre }}</ion-card-title>
+          </div>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-button fill="outline" color="info" (click)="abrirFactura(factura.ruta)">
+              <ion-icon slot="start" name="create-outline"></ion-icon> Abrir Factura
+            </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 
 <ion-content class="ion-padding">
   <ion-button expand="full" (click)="openFacturaModal()">Generar Factura Proforma</ion-button>

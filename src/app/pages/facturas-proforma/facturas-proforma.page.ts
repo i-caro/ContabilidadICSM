@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FacturaModalComponent } from 'src/app/core/components/factura-component/factura-modal.component';
+import { FacturaService } from 'src/app/core/services/facturas.service';
 
 @Component({
   selector: 'app-facturas-proforma',
@@ -9,15 +10,49 @@ import { FacturaModalComponent } from 'src/app/core/components/factura-component
   standalone: false
 })
 export class FacturasProformaPage implements OnInit {
-  
-  constructor(private modalController: ModalController) {}
+  facturas: { nombre: string, ruta: string }[] = [];
+  searchText: string = ''; 
+  facturasFiltradas: { nombre : string, ruta: string}[] = [];
 
-  ngOnInit() {}
+
+  constructor(private modalController: ModalController, private facturaService: FacturaService) {}
+
+  ngOnInit() {
+    this.facturaService.getFacturas().subscribe({
+      next: facturas => {
+        this.facturas = facturas;
+        this.facturasFiltradas = facturas;
+      },
+      error: err => {
+        console.error("Error al obtener clientes:", err);
+      }
+    });
+  }
 
   async openFacturaModal() {
     const modal = await this.modalController.create({
       component: FacturaModalComponent
     });
     await modal.present();
+  }
+
+  abrirFactura(ruta: string) {
+    window.open(`file://${ruta}`, '_blank');
+  }
+
+  filtrarClientes() {
+    const texto = this.quitarTildes(this.searchText.toLowerCase().trim());
+
+    if (texto === '') {
+      this.facturasFiltradas = this.facturas;
+    } else {
+      this.facturasFiltradas = this.facturas.filter(factura =>
+        this.quitarTildes(factura.nombre.toLowerCase()).includes(texto)
+      );
+    }
+  }
+
+  quitarTildes(texto: string): string {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 }

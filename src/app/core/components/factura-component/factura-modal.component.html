@@ -8,14 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="facturaForm">
+  <form [formGroup]="facturaForm">  
     <ion-item>
       <ion-label>Cliente</ion-label>
-      <ion-searchbar [(ngModel)]="searchText" (ionInput)="filtrarClientes()" debounce="300"></ion-searchbar>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label>Cliente</ion-label>
+      <ion-searchbar (ionInput)="filtrarClientes($event)"></ion-searchbar>
       <ion-select formControlName="cliente" (ionChange)="onClienteChange($event)">
         <ion-select-option *ngFor="let cliente of clientesFiltrados" [value]="cliente.id">
           {{ cliente.nombre }} {{ cliente.apellido }} - {{ cliente.nif_nie }}
