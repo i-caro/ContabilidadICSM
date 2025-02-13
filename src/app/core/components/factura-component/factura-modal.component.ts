@@ -31,7 +31,8 @@ export class FacturaModalComponent implements OnInit {
         correo: '',
         telefono: '',
         observaciones: '',
-        isDebtor: false
+        isDebtor: false,
+        imagenUrl: ''
     };
     searchText: string = '';
 

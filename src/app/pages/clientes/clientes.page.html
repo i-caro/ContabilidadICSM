@@ -16,7 +16,10 @@
         <ion-card class="cliente-card">
           <ion-card-header>
             <div class="cliente-avatar">
-              <ion-icon name="person-circle-outline"></ion-icon>
+              <img *ngIf="cliente.imagenUrl; else defaultAvatar" [src]="cliente.imagenUrl" alt="Foto de {{ cliente.nombre }}" class="cliente-imagen">
+              <ng-template #defaultAvatar>
+                <ion-icon name="person-circle-outline"></ion-icon>
+              </ng-template>
             </div>
             <div class="cliente-info">
               <ion-card-title>{{ cliente.nombre }}</ion-card-title>
@@ -26,9 +29,9 @@
 
           <ion-card-content>
             <p><ion-icon name="call-outline"></ion-icon> {{ cliente.telefono }}</p>
-            <p><ion-icon name="mail-outline"></ion-icon> {{cliente.correo}} </p>
-            <p><ion-icon name="location-outline"></ion-icon> {{cliente.direccion}} </p>
-            <p><ion-icon name="card-outline"></ion-icon> {{cliente.nif_nie}} </p>
+            <p><ion-icon name="mail-outline"></ion-icon> {{ cliente.correo }} </p>
+            <p><ion-icon name="location-outline"></ion-icon> {{ cliente.direccion }} </p>
+            <p><ion-icon name="card-outline"></ion-icon> {{ cliente.nif_nie }} </p>
             <div class="cliente-actions">
               <ion-button fill="outline" color="warning" (click)="actualizarCliente(cliente)">
                 <ion-icon slot="start" name="create-outline"></ion-icon> Editar

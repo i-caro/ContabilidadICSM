@@ -8,5 +8,6 @@ export interface Cliente {
     telefono: string;
     observaciones: string;
     isDebtor: false;
+    imagenUrl: string
   }
   

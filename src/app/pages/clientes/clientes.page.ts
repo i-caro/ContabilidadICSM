@@ -4,7 +4,6 @@ import { ModalClienteComponent } from 'src/app/core/components/cliente-component
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { Cliente } from 'src/app/core/models/cliente.model';
 import { PdfGeneratorService } from 'src/app/core/services/pdf-generator.service';
-import { FichaContableService } from 'src/app/core/services/ficha-contable.service';
 
 @Component({
   selector: 'app-clientes',

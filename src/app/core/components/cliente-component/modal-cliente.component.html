@@ -43,6 +43,11 @@
       <ion-label position="floating">Observaciones</ion-label>
       <ion-input [(ngModel)]="cliente.observaciones"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <input type="file" (change)="subirImagen($event)" accept="image/*">
+      <img *ngIf="urlImagen" [src]="urlImagen" alt="Vista previa" width="100">
+    </ion-item>
   </ion-list>
 
   <ion-footer>

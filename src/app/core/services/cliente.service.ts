@@ -55,7 +55,7 @@ export class ClienteService {
 
       const ficha: FichaContable = {
         clienteId: docRef.id,
-        clienteNombre: cliente.nombre + cliente.apellido,
+        clienteNombre: cliente.nombre + ' ' + cliente.apellido,
         saldo: 0,
     };
 
