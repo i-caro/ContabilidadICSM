@@ -4,6 +4,7 @@ import { ModalClienteComponent } from 'src/app/core/components/cliente-component
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { Cliente } from 'src/app/core/models/cliente.model';
 import { PdfGeneratorService } from 'src/app/core/services/pdf-generator.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-clientes',
@@ -22,6 +23,7 @@ export class ClientesPage implements OnInit {
     private alertController: AlertController,
     private toastController: ToastController,
     private pdfService: PdfGeneratorService,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit() {
@@ -79,11 +81,21 @@ export class ClientesPage implements OnInit {
     await modal.present();
   
     const { data } = await modal.onWillDismiss();
+  
     if (data && data.cliente) {
-      await this.clienteService.editarCliente(data.cliente);
+      const clienteActualizado = data.cliente;
+
+      if(clienteActualizado.imagenUrl !== cliente.imagenUrl){
+        const oldImageRef = this.storage.refFromURL(cliente.imagenUrl);
+          oldImageRef.delete()
+          console.log("Imagen anterior eliminada correctamente.");
+      }
+
+      await this.clienteService.editarCliente(clienteActualizado);
       this.mostrarToast('Cliente actualizado con éxito');
     }
   }
+  
 
   async eliminarCliente(id: string) {
     const alert = await this.alertController.create({

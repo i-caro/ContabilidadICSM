@@ -83,7 +83,8 @@ export class ClienteService {
         correo: cliente.correo,
         telefono: cliente.telefono,
         observaciones: cliente.observaciones,
-        isDebtor: cliente.isDebtor
+        isDebtor: cliente.isDebtor,
+        imagenUrl: cliente.imagenUrl
       });
 
       console.log("Cliente actualizado con éxito.");
