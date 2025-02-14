@@ -26,7 +26,7 @@ export class FacturaService {
 
     async agregarFactura(factura: Factura): Promise<void> {
         try {
-          const docRef = await this.facturasCollection.add(factura);
+          await this.facturasCollection.add(factura);
         } catch (error) {
           console.error("Error al agregar factura:", error);
           throw error;

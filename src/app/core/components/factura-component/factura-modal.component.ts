@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { ClienteService } from '../../services/cliente.service';
@@ -17,6 +17,8 @@ import { FacturaService } from '../../services/facturas.service';
 })
 
 export class FacturaModalComponent implements OnInit {
+
+  @Input() proforma!: boolean;
 
     facturaForm: FormGroup;
     clientes: Cliente[] = [];
@@ -86,8 +88,7 @@ export class FacturaModalComponent implements OnInit {
         return;
       }
       
-      // Llamada a la función existente para generar la factura proforma
-      const factura = await this.pdfService.generateFactura(cliente, transacciones, true);
+      const factura = await this.pdfService.generateFactura(cliente, transacciones, this.proforma);
       if(factura){
         this.facturaService.agregarFactura(factura)
       }else{

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FacturaModalComponent } from 'src/app/core/components/factura-component/factura-modal.component';
+import { Factura } from 'src/app/core/models/factura.model';
 import { FacturaService } from 'src/app/core/services/facturas.service';
 
 @Component({
@@ -10,9 +11,9 @@ import { FacturaService } from 'src/app/core/services/facturas.service';
   standalone: false
 })
 export class FacturasProformaPage implements OnInit {
-  facturas: { nombre: string, ruta: string }[] = [];
+  facturas: Factura[] = [];
   searchText: string = ''; 
-  facturasFiltradas: { nombre : string, ruta: string}[] = [];
+  facturasFiltradas: Factura[] = [];
 
 
   constructor(private modalController: ModalController, private facturaService: FacturaService) {}
@@ -31,7 +32,10 @@ export class FacturasProformaPage implements OnInit {
 
   async openFacturaModal() {
     const modal = await this.modalController.create({
-      component: FacturaModalComponent
+      component: FacturaModalComponent,
+      componentProps:{
+        proforma: true
+      }
     });
     await modal.present();
   }

@@ -3,4 +3,5 @@ export interface Factura{
     clienteId: string;
     nombre: string;
     ruta: string;
+    proforma: boolean;
 }

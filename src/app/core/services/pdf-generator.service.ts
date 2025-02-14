@@ -241,7 +241,8 @@ export class PdfGeneratorService {
             return {
               clienteId: clientData.id!,  
               nombre: `${clientData.nombre} ${clientData.apellido}_${esProforma ? 'FacturaProforma' : 'FacturaDefinitiva'}`,
-              ruta: response.path  
+              ruta: response.path,
+              proforma: esProforma  
           };
         } else {
             console.error('❌ Error al guardar el PDF:', response.error);
