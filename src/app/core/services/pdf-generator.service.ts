@@ -107,7 +107,7 @@ export class PdfGeneratorService {
         const fontSize = 12;
 
         // 📌 Cargar imagen del logo
-        const logoUrl = 'C:\\Users\\icarrom063\\Desktop\\ContabilidadICSM\\src\\assets\\imagenes\\calculo.png'; 
+        const logoUrl = 'C:\\Escritorio\\ContabilidadICSM\\src\\assets\\imagenes\\calculo.png'; 
         const logoBytes = await fetch(logoUrl).then(res => res.arrayBuffer());
         const logoImage = await pdfDoc.embedPng(logoBytes);
 

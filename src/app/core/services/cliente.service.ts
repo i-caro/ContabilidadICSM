@@ -5,6 +5,7 @@ import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Cliente } from '../models/cliente.model';
 import { FichaContable } from '../models/ficha-contable.model';
 import { FichaContableService } from './ficha-contable.service';
+import { NotificacionesService } from './notificaciones.service';
 
 
 
@@ -16,7 +17,7 @@ import { FichaContableService } from './ficha-contable.service';
 export class ClienteService {
   private clientesCollection = this.firestore.collection<Cliente>('clientes');
 
-  constructor(private firestore: AngularFirestore, private fichaService: FichaContableService) {
+  constructor(private firestore: AngularFirestore, private fichaService: FichaContableService, private notification: NotificacionesService) {
   }
 
   getClientes(): Observable<Cliente[]> {
@@ -60,7 +61,7 @@ export class ClienteService {
     };
 
     await this.fichaService.agregarFicha(ficha);
-
+    await this.notification.enviarNotificacionCliente(cliente.nombre)
       return console.log("Cliente agregado con ID:", docRef.id);
     } catch (error) {
       console.error("Error al agregar cliente:", error);

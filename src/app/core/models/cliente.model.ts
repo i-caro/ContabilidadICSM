@@ -7,7 +7,7 @@ export interface Cliente {
     correo: string;
     telefono: string;
     observaciones: string;
-    isDebtor: false;
+    isDebtor: boolean;
     imagenUrl: string
   }
   

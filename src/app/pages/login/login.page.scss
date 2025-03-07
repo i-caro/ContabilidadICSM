@@ -1,0 +1,91 @@
+// Estilos para la pantalla de inicio de sesión en Ionic
+
+ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+  }
+  
+  ion-card {
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  // Título del formulario
+  ion-card-title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  // Contenedor de la tarjeta
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  // Estilos de los inputs
+  ion-item {
+    --background: transparent;
+    --border-radius: 8px;
+    --color: #333;
+    --highlight-color-focused: #2a5298;
+    --highlight-color-valid: #1e3c72;
+  }
+  
+  // Placeholder flotante
+  ion-label {
+    color: #555;
+    font-weight: 500;
+  }
+  
+  // Botón de inicio de sesión
+  ion-button {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    --background: #1e3c72;
+    --background-hover: #2a5298;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  // Mensajes de error
+  ion-text[color="danger"] {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  // Animación de entrada
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Ajustes para pantallas pequeñas
+  @media (max-width: 480px) {
+    ion-card {
+      width: 95%;
+    }
+  }
+  
