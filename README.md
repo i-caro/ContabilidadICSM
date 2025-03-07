@@ -12,7 +12,7 @@ Esta aplicación de contabilidad ayuda a mantener ordenados y limpios tanto los 
 
 ## Enlace al Video Explicativo
 
-[![Ver Video](https://img.shields.io/badge/Video-YouTube-red?logo=youtube)]((https://youtu.be/SBWBX2suwzA))  
+[![Ver Video](https://img.shields.io/badge/Video-YouTube-red?logo=youtube)](https://youtu.be/SBWBX2suwzA)
 *[Haz clic aquí para ver el video explicativo.]*
 
 
